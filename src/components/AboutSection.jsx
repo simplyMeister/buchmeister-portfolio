@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
+import { Download } from 'lucide-react'
 
 const techStack = {
   LANGUAGES: ['Python', 'TypeScript', 'JavaScript', 'C', 'C++', 'Java'],
@@ -8,8 +9,7 @@ const techStack = {
   TOOLS: ['Docker', 'Git', 'Github', 'VsCode',],
 }
 
-export default function AboutSection({ setBenModalOpen, isMobile }) {
-
+export default function AboutSection({ setBenModalOpen, isMobile, onDownload }) {
   return (
     <>
 
@@ -21,10 +21,10 @@ export default function AboutSection({ setBenModalOpen, isMobile }) {
         style={{ padding: isMobile ? '60px 24px' : '80px 48px', position: 'relative' }}
       >
         {/* Stats badges */}
-        <div style={{ display: 'flex', gap: 12, marginBottom: isMobile ? 32 : 40, flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', gap: 12, marginBottom: isMobile ? 32 : 40, flexWrap: 'wrap', alignItems: 'center' }}>
           <Badge>Experience<span style={{ color: '#6b7280', marginLeft: 6 }}>1+ Years</span></Badge>
-          <Badge>Projects<span style={{ color: '#6b7280', marginLeft: 6 }}>5+ Shipped</span></Badge>
-          {!isMobile && (
+         
+          <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
             <button
               onClick={() => setBenModalOpen(true)}
               style={{
@@ -47,7 +47,30 @@ export default function AboutSection({ setBenModalOpen, isMobile }) {
               <span style={{ fontFamily: 'monospace', fontSize: 14 }}>⌘K</span>
               {' '}Ask Benedict
             </button>
-          )}
+
+            <button
+              onClick={onDownload}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 8,
+                padding: '5px 14px',
+                borderRadius: 999,
+                border: '1px solid #d1d5db',
+                background: '#f9f7f2',
+                fontSize: 13,
+                color: '#1a1a1a',
+                cursor: 'pointer',
+                fontFamily: 'Inter, sans-serif',
+                transition: 'all 0.2s',
+              }}
+              onMouseEnter={e => { e.currentTarget.style.background = '#e5e7eb' }}
+              onMouseLeave={e => { e.currentTarget.style.background = '#f9f7f2' }}
+            >
+              <Download size={14} />
+              Download Resume
+            </button>
+          </div>
         </div>
 
         {/* Two-column layout (stacks on mobile) */}

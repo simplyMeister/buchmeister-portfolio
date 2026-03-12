@@ -36,11 +36,13 @@ export default function HeroSection({ setBenModalOpen, isMobile }) {
         viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
         style={{ 
-          minHeight: isMobile ? 'auto' : '100dvh', 
+          minHeight: window.innerWidth <= 1024 ? 'auto' : '100dvh', 
           position: 'relative', 
           display: 'flex', 
           flexDirection: 'column', 
-          padding: isMobile ? '0 24px' : '0 48px' 
+          padding: window.innerWidth <= 1024 ? '0 24px' : '0 48px',
+          paddingBottom: window.innerWidth <= 1024 ? '80px' : '0',
+          paddingTop: window.innerWidth <= 1024 ? '20px' : '0'
         }}
       >
         {/* Top bar */}
@@ -52,11 +54,17 @@ export default function HeroSection({ setBenModalOpen, isMobile }) {
           paddingBottom: 28 
         }}>
           <span style={{ fontSize: 14, fontWeight: 500, color: '#1a1a1a' }}>Onyeachonam Buchi</span>
-          {!isMobile && <span style={{ fontSize: 13, color: '#6b7280' }}>Frontend Developer</span>}
+          {!isMobile && <span style={{ fontSize: 13, fontWeight:500, color: 'MAGENTA' }}>Frontend Developer</span>}
         </div>
 
         {/* Hero headline */}
-        <div style={{ flex: isMobile ? 'none' : 1, display: 'flex', alignItems: 'flex-start', paddingTop: isMobile ? 20 : 40, paddingBottom: isMobile ? 32 : 0 }}>
+        <div style={{ 
+          flex: window.innerWidth <= 1024 ? 'none' : 1, 
+          display: 'flex', 
+          alignItems: 'flex-start', 
+          paddingTop: window.innerWidth <= 1024 ? 40 : 40, 
+          paddingBottom: window.innerWidth <= 1024 ? 48 : 0 
+        }}>
           <h1
             className="font-serif"
             style={{ 
@@ -96,11 +104,12 @@ export default function HeroSection({ setBenModalOpen, isMobile }) {
         {/* Bottom row */}
         <div style={{ 
           display: 'flex', 
-          flexDirection: isMobile ? 'column' : 'row',
+          flexDirection: window.innerWidth <= 1024 ? 'column' : 'row',
           justifyContent: 'space-between', 
-          alignItems: isMobile ? 'flex-start' : 'flex-end', 
-          paddingBottom: 47,
-          gap: isMobile ? 32 : 0
+          alignItems: window.innerWidth <= 1024 ? 'flex-start' : 'flex-end', 
+          paddingBottom: window.innerWidth <= 1024 ? 0 : 47,
+          gap: window.innerWidth <= 1024 ? 32 : 0,
+          marginTop: window.innerWidth <= 1024 ? 0 : 0
         }}>
           {/* Subtext */}
           <div style={{ fontSize: 13, color: '#6b7280', lineHeight: 1.6 }}>
@@ -108,7 +117,7 @@ export default function HeroSection({ setBenModalOpen, isMobile }) {
               Previously at <a href="https://sheratonhotels.com" target="_blank" rel="noreferrer" style={{ color: 'inherit', textDecoration: 'none', fontWeight: 900 }}>Sheraton Hotels</a> &amp; <a href="https://www.21st-evolution.com/" target="_blank" rel="noreferrer" style={{ color: 'inherit', textDecoration: 'none', fontWeight: 900 }}>21st Century Evolutions Systems</a>.
             </div>
             <div style={{ marginTop: 4 }}>
-              Now Fullstack and IT engineer at <a href="https://rceettech.com" target="_blank" rel="noreferrer" style={{ color: 'inherit', textDecoration: 'none', fontWeight: 900 }}>rceet technologies</a>.
+              Now Frontend-Dev and IT engineer at <a href="https://rceettech.com" target="_blank" rel="noreferrer" style={{ color: 'inherit', textDecoration: 'none', fontWeight: 900 }}>rceet technologies</a>.
             </div>
           </div>
           
@@ -116,22 +125,22 @@ export default function HeroSection({ setBenModalOpen, isMobile }) {
           {/* Social links */}
           <div style={{ 
             display: 'flex', 
-            flexDirection: isMobile ? 'row' : 'column', 
-            alignItems: isMobile ? 'center' : 'flex-end', 
-            gap: isMobile ? 20 : 10,
+            flexDirection: window.innerWidth <= 1024 ? 'row' : 'column', 
+            alignItems: window.innerWidth <= 1024 ? 'center' : 'flex-end', 
+            gap: window.innerWidth <= 1024 ? 20 : 10,
             flexWrap: 'wrap'
           }}>
             <a href="https://dribbble.com/BenCruze" target="_blank" rel="noreferrer" className="social-link">
               <BookOpen size={14} />
-              {!isMobile && 'Blog'}
+              {window.innerWidth > 1024 && 'Blog'}
             </a>
             <a href="https://github.com/simplyMeister" target="_blank" rel="noreferrer" className="social-link">
               <Github size={14} />
-              {!isMobile && 'Github'}
+              {window.innerWidth > 1024 && 'Github'}
             </a>
             <a href="https://www.linkedin.com/in/benedict-onyeachonam/?trk=opento_sprofile_topcard" target="_blank" rel="noreferrer" className="social-link">
               <Linkedin size={14} />
-              {!isMobile && 'LinkedIn'}
+              {window.innerWidth > 1024 && 'LinkedIn'}
             </a>
           </div>
         </div>

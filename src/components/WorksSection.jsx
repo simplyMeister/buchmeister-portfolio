@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { ExternalLink, Github } from 'lucide-react'
-import { motion } from 'framer-motion'
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import ecotech from '../assets/ecotech.png'
 import personalsite from '../assets/personalsite.png'
 import ping from '../assets/ping.png'
@@ -95,8 +95,8 @@ export default function WorksSection({ isMobile }) {
 
       <div style={{ 
         display: 'grid', 
-        gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)', // Changed to repeat(2, 1fr) for desktop
-        gap: isMobile ? '32px' : '40px 80px', 
+        gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)',
+        gap: isMobile ? '24px' : '24px 40px', 
         alignItems: 'start' 
       }}>
         {projects.map((project, index) => (
@@ -105,6 +105,7 @@ export default function WorksSection({ isMobile }) {
             project={project}
             offset={!isMobile && index % 2 !== 0} 
             isMobile={isMobile}
+            index={index}
           />
         ))}
       </div>
@@ -112,32 +113,91 @@ export default function WorksSection({ isMobile }) {
   )
 }
 
-function ProjectCard({ project, offset, isMobile }) {
+function ProjectCard({ project, offset, isMobile, index }) {
+  const ref = useRef(null)
+
+  // Motion values for 3D tilt
+  const x = useMotionValue(0)
+  const y = useMotionValue(0)
+
+  // Spring physics for smooth return and movement
+  const mouseXSpring = useSpring(x, { stiffness: 150, damping: 15 })
+  const mouseYSpring = useSpring(y, { stiffness: 150, damping: 15 })
+
+  // Transform coordinates to rotation angles (max 10 degrees)
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ['5deg', '-5deg'])
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ['-5deg', '5deg'])
+
+  // Hover state for scaling and shadow
+  const [isHovered, setIsHovered] = useState(false)
+
+  const handleMouseMove = (e) => {
+    if (!ref.current || isMobile) return
+    const rect = ref.current.getBoundingClientRect()
+    const width = rect.width
+    const height = rect.height
+    
+    // Calculate mouse position relative to card center (-0.5 to 0.5)
+    const mouseX = e.clientX - rect.left
+    const mouseY = e.clientY - rect.top
+    const xPct = (mouseX / width) - 0.5
+    const yPct = (mouseY / height) - 0.5
+
+    x.set(xPct)
+    y.set(yPct)
+  }
+
+  const handleMouseLeave = () => {
+    setIsHovered(false)
+    x.set(0)
+    y.set(0)
+  }
+
+  // Calculate stagger delay based on column (0 for left, 1 for right) to create the ripple effect
+  const staggerDelay = isMobile ? 0 : (index % 2) * 0.15;
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 50 }}
+      initial={{ opacity: 0, y: 60 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-100px" }}
-      transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ 
+        duration: 0.8, 
+        ease: [0.16, 1, 0.3, 1], // Smooth, dampened ease-out matching reference
+        delay: staggerDelay 
+      }}
       style={{ 
         marginTop: offset ? 80 : 0,
-        marginBottom: isMobile ? 0 : 40 
+        marginBottom: isMobile ? 0 : 40,
+        perspective: 1000 // Enable 3D space
       }}
     >
-      {/* Image area */}
-      <div
+      {/* Image area with 3D Tilt */}
+      <motion.div
+        ref={ref}
+        onMouseMove={handleMouseMove}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={handleMouseLeave}
         style={{
           borderRadius: 14,
           overflow: 'hidden',
           background: project.image ? 'transparent' : project.placeholderBg,
-          minHeight: 360,
+          height: 360,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           position: 'relative',
           marginBottom: 16,
-          border: '1px solid #e5e7eb',
+          // 3D transforms
+          rotateX: isMobile ? 0 : rotateX,
+          rotateY: isMobile ? 0 : rotateY,
+          scale: isHovered && !isMobile ? 1.03 : 1,
+          boxShadow: isHovered && !isMobile 
+            ? '0 25px 50px -12px rgba(0, 0, 0, 0.25)' 
+            : '0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)',
+          transition: 'scale 0.3s ease, box-shadow 0.3s ease',
+          transformStyle: 'preserve-3d', // Important for child elements if they need depth
+          cursor: 'pointer'
         }}
       >
         {project.image ? (
@@ -195,7 +255,7 @@ function ProjectCard({ project, offset, isMobile }) {
             {project.name === 'Protocol Bot' ? 'telegram bot' : 'Web app'}
           </span>
         </div>
-      </div>
+      </motion.div>
 
       {/* Card text */}
       <h3

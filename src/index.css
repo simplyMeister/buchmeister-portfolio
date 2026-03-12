@@ -3,11 +3,33 @@
 @import "tailwindcss";
 
 :root {
+  /* Default Light Theme */
   --bg: #f7f3ec;
   --grid: #d6cfc4;
   --text: #1a1a1a;
   --muted: #6b7280;
   --border: #e5e7eb;
+  --accent: #1a1a1a;
+  --aurora-bg: transparent;
+}
+
+.dark {
+  --bg: #050505;
+  --grid: #1f1f1f;
+  --text: #ffffff;
+  --muted: #a1a1aa;
+  --border: #27272a;
+  --accent: #ffffff;
+  --aurora-bg: transparent;
+}
+
+.aurora {
+  --bg: #020617;
+  --grid: rgba(255, 255, 255, 0.03);
+  --text: #f8fafc;
+  --muted: #94a3b8;
+  --border: rgba(255, 255, 255, 0.08);
+  --accent: #38bdf8;
 }
 
 * {
@@ -18,6 +40,29 @@
 
 html {
   scroll-behavior: smooth;
+  /* Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: var(--muted) var(--bg);
+}
+
+/* Chrome, Edge, Safari */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg);
+  border-left: 1px solid var(--border);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--muted);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text);
 }
 
 body {
@@ -27,6 +72,7 @@ body {
   font-size: 15px;
   line-height: 1.6;
   overflow-x: hidden;
+  transition: background-color 0.5s ease, color 0.5s ease;
 }
 
 .font-serif {
@@ -39,25 +85,75 @@ body {
     linear-gradient(var(--grid) 1px, transparent 1px),
     linear-gradient(90deg, var(--grid) 1px, transparent 1px);
   background-size: 24px 24px;
+  transition: background-image 0.5s ease;
 }
 
-/* Vignette edge effect – blue/purple tint */
+/* Vignette edge effect */
 .vignette {
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 0;
   background:
-    radial-gradient(ellipse at 0% 50%, rgba(147, 197, 253, 0.25) 0%, transparent 50%),
-    radial-gradient(ellipse at 100% 50%, rgba(167, 139, 250, 0.2) 0%, transparent 50%),
-    radial-gradient(ellipse at 50% 0%, rgba(147, 197, 253, 0.2) 0%, transparent 50%),
-    radial-gradient(ellipse at 50% 100%, rgba(167, 139, 250, 0.2) 0%, transparent 50%);
+    radial-gradient(ellipse at 0% 50%, rgba(147, 197, 253, 0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at 100% 50%, rgba(167, 139, 250, 0.1) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 0%, rgba(147, 197, 253, 0.1) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 100%, rgba(167, 139, 250, 0.1) 0%, transparent 50%);
+  transition: opacity 0.5s ease;
+}
+
+html[data-theme="dark"] .vignette {
+  opacity: 0.3;
+}
+
+/* Aurora Background Animation */
+.aurora-bg {
+  position: fixed;
+  inset: -50%;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    radial-gradient(ellipse at 100% 0%, rgba(56, 189, 248, 0.35) 0%, transparent 50%),
+    radial-gradient(ellipse at 0% 100%, rgba(167, 139, 250, 0.35) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(14, 165, 233, 0.25) 0%, transparent 60%),
+    radial-gradient(ellipse at 100% 100%, rgba(45, 212, 191, 0.3) 0%, transparent 50%);
+  filter: blur(100px);
+  animation: auroraWave 12s ease-in-out infinite alternate;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+html[data-theme="aurora"] .aurora-bg {
+  opacity: 1;
+}
+
+html[data-theme="aurora"] .vignette {
+  opacity: 0;
+}
+
+@keyframes auroraWave {
+  0% {
+    transform: scale(1) translate(0, 0) rotate(0deg);
+  }
+
+  33% {
+    transform: scale(1.15) translate(3%, -3%) rotate(4deg);
+  }
+
+  66% {
+    transform: scale(0.9) translate(-3%, 3%) rotate(-3deg);
+  }
+
+  100% {
+    transform: scale(1.1) translate(2%, 2%) rotate(2deg);
+  }
 }
 
 .prose-text {
-  color: #374151;
+  color: var(--muted);
   max-width: 42ch;
   line-height: 1.75;
+  transition: color 0.5s ease;
 }
 
 /* Ben Modal */
@@ -74,11 +170,12 @@ body {
 }
 
 .ben-modal {
-  background: #f9f7f2;
+  background: var(--bg);
+  border: 1px solid var(--border);
   border-radius: 16px;
   width: 90%;
   max-width: 540px;
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
   overflow: hidden;
 }
 
@@ -87,7 +184,7 @@ body {
   align-items: center;
   gap: 10px;
   padding: 16px 20px;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid var(--border);
 }
 
 .ben-input-row input {
@@ -97,20 +194,20 @@ body {
   outline: none;
   font-size: 15px;
   font-family: 'Inter', sans-serif;
-  color: #1a1a1a;
+  color: var(--text);
 }
 
 .ben-intro {
   padding: 16px 20px;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid var(--border);
   font-family: 'Instrument Serif', serif;
   font-size: 18px;
-  color: #1a1a1a;
+  color: var(--text);
 }
 
 .ben-attribution {
   font-size: 12px;
-  color: #9ca3af;
+  color: var(--muted);
   margin-top: 4px;
   font-family: 'Inter', sans-serif;
 }
@@ -124,7 +221,7 @@ body {
   padding: 12px 20px;
   cursor: pointer;
   font-size: 14px;
-  color: #374151;
+  color: var(--text);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -133,13 +230,13 @@ body {
 
 .ben-suggestion-item:hover,
 .ben-suggestion-item.active {
-  background: #f1f0ea;
+  background: rgba(128, 128, 128, 0.1);
 }
 
 .ben-suggestion-item .enter-hint {
   font-size: 11px;
-  color: #9ca3af;
-  border: 1px solid #d1d5db;
+  color: var(--muted);
+  border: 1px solid var(--border);
   border-radius: 4px;
   padding: 1px 6px;
 }
@@ -149,16 +246,16 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-top: 1px solid #e5e7eb;
+  border-top: 1px solid var(--border);
   font-size: 11px;
-  color: #9ca3af;
+  color: var(--muted);
 }
 
 .ben-answer {
   padding: 16px 20px;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid var(--border);
   font-size: 14px;
-  color: #374151;
+  color: var(--text);
   line-height: 1.7;
   animation: fadeIn 0.3s ease;
 }
@@ -224,7 +321,7 @@ body {
 
 /* Social link hover */
 .social-link {
-  color: #9ca3af;
+  color: var(--muted);
   font-size: 13px;
   transition: color 0.2s;
   text-decoration: none;
@@ -234,7 +331,7 @@ body {
 }
 
 .social-link:hover {
-  color: #1a1a1a;
+  color: var(--accent);
 }
 
 /* Scroll indicator */
@@ -248,7 +345,7 @@ body {
 .scroll-indicator .wheel {
   width: 20px;
   height: 30px;
-  border: 2px solid #9ca3af;
+  border: 2px solid var(--muted);
   border-radius: 10px;
   display: flex;
   justify-content: center;
@@ -258,7 +355,7 @@ body {
 .scroll-indicator .dot {
   width: 3px;
   height: 6px;
-  background: #9ca3af;
+  background: var(--muted);
   border-radius: 2px;
   animation: scrollDot 1.5s ease infinite;
 }
@@ -268,7 +365,7 @@ body {
   height: 0;
   border-left: 5px solid transparent;
   border-right: 5px solid transparent;
-  border-top: 5px solid #9ca3af;
+  border-top: 5px solid var(--muted);
 }
 
 @keyframes scrollDot {

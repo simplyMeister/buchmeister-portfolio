@@ -8,22 +8,35 @@ export default function Preloader({ onComplete }) {
   const [slideUp, setSlideUp] = useState(false)
   const [hideText, setHideText] = useState(false)
 
+  const [isLoaded, setIsLoaded] = useState(false)
+
+  // Wait for page to fully load before starting the word animation
   useEffect(() => {
-    if (step < WORDS.length) {
-      const timer = setTimeout(() => setStep(s => s + 1), 600)
+    if (document.readyState === 'complete') {
+      setIsLoaded(true)
+    } else {
+      const handleLoad = () => setIsLoaded(true)
+      window.addEventListener('load', handleLoad)
+      return () => window.removeEventListener('load', handleLoad)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (!isLoaded) return // Don't start until loaded
+
+    if (step <= WORDS.length) {
+      const timer = setTimeout(() => setStep(s => s + 1), 600) // Slower sequential appearance
       return () => clearTimeout(timer)
     } else {
-      const done = setTimeout(() => {
-        setHideText(true)
-        
-        setTimeout(() => {
-          setSlideUp(true)
-          setTimeout(onComplete, 1400) // Wait for staggered columns to finish
-        }, 300)
-      }, 700)
-      return () => clearTimeout(done)
+      // Hide text and slide up when words are done
+      setHideText(true)
+      
+      setTimeout(() => {
+        setSlideUp(true)
+        setTimeout(onComplete, 1200) // Wait for staggered columns to finish
+      }, 500) // Longer delay before sliding up out of view
     }
-  }, [step, onComplete])
+  }, [step, isLoaded, onComplete])
 
   return (
     <>
@@ -85,7 +98,7 @@ export default function Preloader({ onComplete }) {
                 style={{
                   opacity: isVisible ? 1 : 0,
                   transform: isVisible ? 'translateY(0)' : 'translateY(10px)',
-                  transition: 'opacity 0.4s ease, transform 0.4s ease',
+                  transition: 'opacity 0.2s ease, transform 0.2s ease',
                   whiteSpace: 'pre',
                   display: 'inline-block'
                 }}
