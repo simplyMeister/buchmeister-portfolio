@@ -64,7 +64,7 @@ export default function ExperienceSection({ isMobile }) {
         <h2 className="font-serif" style={{ 
           fontSize: 'clamp(40px, 6vw, 80px)', 
           fontWeight: 400, 
-          color: 'var(--text)', 
+          color: '#22c55e', 
           lineHeight: 1,
           letterSpacing: '-0.02em',
           width: isMobile ? '100%' : '35%',

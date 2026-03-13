@@ -43,11 +43,11 @@ export default function EducationSection({ isMobile }) {
         <h2 className="font-serif" style={{ 
           fontSize: 'clamp(40px, 6vw, 80px)', 
           fontWeight: 400, 
-          color: 'var(--text)', 
+          color: '#ec4899', 
           marginBottom: 48,
           letterSpacing: '-0.02em',
         }}>
-          Education & Certifications
+          Education &amp; Certifications
         </h2>
       </div>
 

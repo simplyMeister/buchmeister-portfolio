@@ -104,7 +104,7 @@ export default function TestimonialsSection({ isMobile }) {
             <h2 className="font-serif" style={{
               fontSize: 'clamp(36px, 10vw, 56px)',
               fontWeight: 400,
-              color: '#1a1a1a',
+              color: '#a855f7',
               marginBottom: 12,
               letterSpacing: '-0.02em',
               lineHeight: 1.1,
@@ -137,7 +137,7 @@ export default function TestimonialsSection({ isMobile }) {
             <h2 className="font-serif" style={{
               fontSize: 'clamp(36px, 4vw, 64px)',
               fontWeight: 400,
-              color: '#1a1a1a',
+              color: '#a855f7',
               marginBottom: 16,
               letterSpacing: '-0.02em',
               lineHeight: 1.1,

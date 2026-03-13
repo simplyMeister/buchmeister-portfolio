@@ -85,7 +85,7 @@ export default function WorksSection({ isMobile }) {
           fontFamily: '"Lora", "Georgia", serif',
           fontSize: 'clamp(40px, 6vw, 80px)',
           fontWeight: 400,
-          color: '#1a1a1a',
+          color: '#eab308',
           marginBottom: 48,
           letterSpacing: '-0.02em',
         }}
