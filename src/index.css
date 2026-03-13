@@ -368,6 +368,69 @@ html[data-theme="aurora"] .vignette {
   border-top: 5px solid var(--muted);
 }
 
+/* High-end Headline Lighting */
+.headline-lighting {
+  position: relative;
+  z-index: 10;
+}
+
+.headline-aura {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 140%;
+  height: 140%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle at center,
+      rgba(56, 189, 248, 0.25) 0%,
+      rgba(168, 85, 247, 0.2) 30%,
+      rgba(244, 114, 182, 0.15) 60%,
+      transparent 80%);
+  filter: blur(80px);
+  z-index: -1;
+  pointer-events: none;
+  animation: auraPulse 10s infinite alternate ease-in-out;
+}
+
+@keyframes auraPulse {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.5;
+  }
+
+  50% {
+    transform: translate(-48%, -52%) scale(1.1);
+    opacity: 0.8;
+  }
+
+  100% {
+    transform: translate(-52%, -48%) scale(0.9);
+    opacity: 0.5;
+  }
+}
+
+/* Action Verb Backgrounds */
+.bg-action-green {
+  background-color: #22c55e;
+  color: #ffffff;
+  padding: 0 12px;
+  border-radius: 4px;
+}
+
+.bg-action-pink {
+  background-color: #ec4899;
+  color: #ffffff;
+  padding: 0 12px;
+  border-radius: 4px;
+}
+
+.bg-action-gold {
+  background-color: #eab308;
+  color: #ffffff;
+  padding: 0 12px;
+  border-radius: 4px;
+}
+
 @keyframes scrollDot {
 
   0%,
