@@ -79,13 +79,24 @@ body {
   font-family: 'New Kansas', 'Lora', 'Instrument Serif', serif;
 }
 
-/* Grid background */
+/* Grid background container */
 .grid-bg {
-  background-image:
-    linear-gradient(var(--grid) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
-  background-size: 24px 24px;
-  transition: background-image 0.5s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.grid-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(90deg, var(--grid-start) 0%, var(--grid-end) 100%);
+  mask-image: 
+    linear-gradient(to bottom, black 1px, transparent 1px),
+    linear-gradient(to right, black 1px, transparent 1px);
+  mask-size: 24px 24px;
+  pointer-events: none;
+  z-index: 0;
+  transition: background-image 0.8s ease;
 }
 
 /* Vignette edge effect */

@@ -22,7 +22,7 @@ const projects = [
   },
   {
     name: 'Protocol Bot',
-    desc: 'A telegram bot thats assist provosts of an office to carry out administrative duties with respect to duty segregation and attendance takking and process overview summarization',
+    desc: 'A telegram bot that assists provosts of an office to carry out administrative duties with respect to duty segregation and attendance takking and process overview summarization',
     link: '#',
     linkLabel: 'Github',
     linkIcon: 'github',

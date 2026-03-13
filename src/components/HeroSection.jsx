@@ -3,45 +3,8 @@ import { BookOpen, Github, Linkedin, ArrowRight } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import BenModal from './benModal'
 
-const PHASES = [
-  {
-    verb: 'change',
-    bgClass: 'bg-action-green',
-    hex: '#22c55e',
-    actions: ['live', 'act', 'think', 'move']
-  },
-  {
-    verb: 'inspires',
-    bgClass: 'bg-action-pink',
-    hex: '#ec4899',
-    actions: ['interact', 'socialize', 'feel', 'operate']
-  },
-  {
-    verb: 'postulate',
-    bgClass: 'bg-action-gold',
-    hex: '#eab308',
-    actions: ['plan', 'strategize', 'work', 'win']
-  }
-]
-
-export default function HeroSection({ setBenModalOpen, isMobile }) {
-  const [phaseIndex, setPhaseIndex] = useState(0)
-  const [actionIndex, setActionIndex] = useState(0)
+export default function HeroSection({ setBenModalOpen, isMobile, phaseIndex, actionIndex, PHASES }) {
   const [hoveredLink, setHoveredLink] = useState(null)
-
-  useEffect(() => {
-    const actionInterval = setInterval(() => {
-      setActionIndex(i => {
-        if (i === PHASES[phaseIndex].actions.length - 1) {
-          // Transition to next phase
-          setPhaseIndex(p => (p + 1) % PHASES.length)
-          return 0
-        }
-        return i + 1
-      })
-    }, 4000)
-    return () => clearInterval(actionInterval)
-  }, [phaseIndex])
 
   // ⌘K shortcut
   useEffect(() => {
@@ -73,18 +36,6 @@ export default function HeroSection({ setBenModalOpen, isMobile }) {
           overflow: 'hidden'
         }}
       >
-        {/* Hero Background Tiles */}
-        <div className="hero-tiles">
-          {Array.from({ length: 240 }).map((_, i) => (
-            <motion.div 
-              key={i} 
-              className="tile"
-              whileHover={{ backgroundColor: 'rgba(0, 0, 0, 0.08)' }}
-              transition={{ duration: 0.3 }}
-            />
-          ))}
-        </div>
-
         {/* Top bar */}
         <div style={{ 
           display: 'flex', 

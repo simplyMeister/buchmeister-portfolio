@@ -8,6 +8,33 @@ const EducationSection = lazy(() => import('./components/EducationSection'))
 const WorksSection = lazy(() => import('./components/WorksSection'))
 const TestimonialsSection = lazy(() => import('./components/TestimonialsSection'))
 const ContactSection = lazy(() => import('./components/ContactSection'))
+
+const PHASES = [
+  {
+    verb: 'change',
+    bgClass: 'bg-action-green',
+    hex: '#22c55e',
+    startHex: '#22c55e',
+    endHex: '#a855f7', // Purple complementary
+    actions: ['live', 'act', 'think', 'move']
+  },
+  {
+    verb: 'inspires',
+    bgClass: 'bg-action-pink',
+    hex: '#ec4899',
+    startHex: '#ec4899',
+    endHex: '#06b6d4', // Cyan complementary
+    actions: ['interact', 'socialize', 'feel', 'operate']
+  },
+  {
+    verb: 'postulate',
+    bgClass: 'bg-action-gold',
+    hex: '#eab308',
+    startHex: '#eab308',
+    endHex: '#6366f1', // Indigo complementary
+    actions: ['plan', 'strategize', 'work', 'win']
+  }
+]
 import Preloader from './components/Preloader'
 import BenModal from './components/benModal'
 import MagneticButton from './components/MagneticButton'
@@ -51,6 +78,22 @@ export default function App() {
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme)
   }, [theme])
+
+  const [phaseIndex, setPhaseIndex] = useState(0)
+  const [actionIndex, setActionIndex] = useState(0)
+
+  useEffect(() => {
+    const actionInterval = setInterval(() => {
+      setActionIndex(i => {
+        if (i === PHASES[phaseIndex].actions.length - 1) {
+          setPhaseIndex(p => (p + 1) % PHASES.length)
+          return 0
+        }
+        return i + 1
+      })
+    }, 4000)
+    return () => clearInterval(actionInterval)
+  }, [phaseIndex])
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768)
@@ -163,7 +206,10 @@ export default function App() {
         style={{ 
           minHeight: '100vh', 
           position: 'relative',
-        }}
+          '--grid-start': `${PHASES[phaseIndex].startHex}38`,
+          '--grid-end': `${PHASES[phaseIndex].endHex}38`,
+          transition: 'background-image 0.5s ease, --grid-start 0.8s ease, --grid-end 0.8s ease'
+        } }
       >
         {/* Animated Aurora Background (only visible in aurora theme) */}
         <div className="aurora-bg" />
@@ -185,7 +231,13 @@ export default function App() {
           }}
         >
           <Suspense fallback={<HeroSkeleton isMobile={isMobile} />}>
-            <HeroSection setBenModalOpen={setBenModalOpen} isMobile={isMobile} />
+            <HeroSection 
+              setBenModalOpen={setBenModalOpen} 
+              isMobile={isMobile} 
+              phaseIndex={phaseIndex}
+              actionIndex={actionIndex}
+              PHASES={PHASES}
+            />
           </Suspense>
           <Suspense fallback={<AboutSkeleton isMobile={isMobile} />}>
             <AboutSection 
