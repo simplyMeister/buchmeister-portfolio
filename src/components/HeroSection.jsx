@@ -89,7 +89,7 @@ export default function HeroSection({ setBenModalOpen, isMobile, phaseIndex, act
               }}
             >
               Creating Systems that <br />
-              that{' '}
+              would{' '}
               <span style={{ display: 'inline-block', verticalAlign: 'bottom', height: '1.2em', overflow: 'hidden' }}>
                 <AnimatePresence mode="wait">
                   <motion.span

@@ -28,6 +28,45 @@ const testimonials = [
   },
 ]
 
+const highlightPhrases = [
+  { phrase: "reliable", color: "rgba(34, 197, 94, 0.2)" },
+  { phrase: "gets the job done", color: "rgba(168, 85, 247, 0.2)" },
+  { phrase: "take on any challenge", color: "rgba(59, 130, 246, 0.2)" },
+  { phrase: "learning and adapting", color: "rgba(56, 189, 248, 0.2)" },
+  { phrase: "most out of what he has been given", color: "rgba(234, 179, 8, 0.2)" },
+  { phrase: "innovation", color: "rgba(34, 197, 94, 0.2)" },
+  { phrase: "impressive way", color: "rgba(168, 85, 247, 0.2)" },
+  { phrase: "good at what he does", color: "rgba(59, 130, 246, 0.2)" },
+  { phrase: "wonderful personality", color: "rgba(34, 197, 94, 0.2)" },
+  { phrase: "delivers on promises", color: "rgba(168, 85, 247, 0.2)" },
+  { phrase: "lovely person", color: "rgba(34, 197, 94, 0.2)" },
+  { phrase: "passionate", color: "rgba(168, 85, 247, 0.2)" },
+  { phrase: "willing to learn", color: "rgba(59, 130, 246, 0.2)" }
+]
+
+function HighlightedText({ text }) {
+  let parts = [text]
+  highlightPhrases.forEach(({ phrase, color }) => {
+    let newParts = []
+    parts.forEach(part => {
+      if (typeof part === 'string') {
+        const split = part.split(new RegExp(`(${phrase})`, 'g'))
+        split.forEach(s => {
+          if (s === phrase) {
+            newParts.push(<span key={Math.random()} style={{ backgroundColor: color, padding: '1px 4px', borderRadius: '4px', color: 'inherit' }}>{s}</span>)
+          } else if (s !== '') {
+            newParts.push(s)
+          }
+        })
+      } else {
+        newParts.push(part)
+      }
+    })
+    parts = newParts
+  })
+  return <>{parts}</>
+}
+
 function TestimonialCard({ t, i }) {
   return (
     <motion.div
@@ -54,20 +93,20 @@ function TestimonialCard({ t, i }) {
         fontFamily: '"Lora", "Georgia", serif',
         fontSize: 'clamp(15px, 1.8vw, 20px)',
         fontWeight: 400,
-        color: '#1a1a1a',
+        color: 'var(--text)',
         lineHeight: 1.55,
         marginBottom: 20,
         letterSpacing: '-0.01em',
       }}>
-        {t.quote}
+        <HighlightedText text={t.quote} />
       </p>
 
       {/* Attribution */}
-      <div style={{ paddingLeft: 12, borderLeft: '2px solid #e5e7eb' }}>
+      <div style={{ paddingLeft: 12, borderLeft: '2px solid var(--border)' }}>
         <div style={{
           fontSize: 13,
           fontWeight: 600,
-          color: '#1a1a1a',
+          color: 'var(--text)',
           fontFamily: '"Satoshi", "Inter", sans-serif',
           marginBottom: 2,
         }}>
@@ -75,7 +114,7 @@ function TestimonialCard({ t, i }) {
         </div>
         <div style={{
           fontSize: 12,
-          color: '#9ca3af',
+          color: 'var(--muted)',
           fontFamily: '"Satoshi", "Inter", sans-serif',
         }}>
           {t.role}
@@ -111,8 +150,8 @@ export default function TestimonialsSection({ isMobile }) {
             }}>
               What People Say
             </h2>
-            <div style={{ width: 32, height: 2, background: '#1a1a1a', marginBottom: 12 }} />
-            <p style={{ fontSize: 13, color: '#9ca3af', fontFamily: '"Satoshi", "Inter", sans-serif' }}>
+            <div style={{ width: 32, height: 2, background: 'var(--text)', marginBottom: 12 }} />
+            <p style={{ fontSize: 13, color: 'var(--muted)', fontFamily: '"Satoshi", "Inter", sans-serif' }}>
               Kind words from people I've had the honour of working with.
             </p>
           </motion.div>
@@ -144,8 +183,8 @@ export default function TestimonialsSection({ isMobile }) {
             }}>
               What People Say
             </h2>
-            <div style={{ width: 32, height: 2, background: '#1a1a1a', marginBottom: 16 }} />
-            <p style={{ fontSize: 13, color: '#9ca3af', fontFamily: '"Satoshi", "Inter", sans-serif', maxWidth: '28ch' }}>
+            <div style={{ width: 32, height: 2, background: 'var(--text)', marginBottom: 16 }} />
+            <p style={{ fontSize: 13, color: 'var(--muted)', fontFamily: '"Satoshi", "Inter", sans-serif', maxWidth: '28ch' }}>
               Kind words from people I've had the honour of working with.
             </p>
           </motion.div>

@@ -19,7 +19,7 @@ const PHASES = [
     actions: ['live', 'act', 'think', 'move']
   },
   {
-    verb: 'inspires',
+    verb: 'inspire',
     bgClass: 'bg-action-pink',
     hex: '#ec4899',
     startHex: '#ec4899',
@@ -244,6 +244,7 @@ export default function App() {
               setBenModalOpen={setBenModalOpen} 
               isMobile={isMobile} 
               onDownload={handleDownload}
+              phaseIndex={phaseIndex}
             />
           </Suspense>
           <Suspense fallback={<ExperienceSkeleton isMobile={isMobile} />}>

@@ -90,7 +90,7 @@ body {
   position: absolute;
   inset: 0;
   background-image: linear-gradient(90deg, var(--grid-start) 0%, var(--grid-end) 100%);
-  mask-image: 
+  mask-image:
     linear-gradient(to bottom, black 1px, transparent 1px),
     linear-gradient(to right, black 1px, transparent 1px);
   mask-size: 24px 24px;
