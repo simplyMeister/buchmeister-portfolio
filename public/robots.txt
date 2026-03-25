@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://buchi-portfolio-weld.vercel.app/sitemap.xml

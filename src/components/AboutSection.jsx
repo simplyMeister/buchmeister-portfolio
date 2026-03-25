@@ -6,15 +6,15 @@ const techStack = {
   LANGUAGES: [
     { name: 'Python', color: '#3776AB', bg: 'rgba(55, 118, 171, 0.1)', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg' },
     { name: 'TypeScript', color: '#3178C6', bg: 'rgba(49, 120, 198, 0.1)', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg' },
-    { name: 'JavaScript', color: '#F7DF1E', bg: 'rgba(247, 223, 30, 0.1)', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg' },
+    { name: 'JavaScript', color: '#b45309', bg: 'rgba(180, 83, 9, 0.1)', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg' },
     { name: 'C', color: '#A8B9CC', bg: 'rgba(168, 185, 204, 0.1)', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg' },
     { name: 'C++', color: '#00599C', bg: 'rgba(0, 89, 156, 0.1)', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg' },
     { name: 'Java', color: '#007396', bg: 'rgba(0, 115, 150, 0.1)', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg' },
   ],
   FRONTEND: [
-    { name: 'React', color: '#61DAFB', bg: 'rgba(97, 218, 251, 0.1)', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg' },
+    { name: 'React', color: '#0284c7', bg: 'rgba(2, 132, 199, 0.1)', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg' },
     { name: 'Next.js', color: '#000000', bg: 'rgba(0, 0, 0, 0.05)', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg' },
-    { name: 'React Native', color: '#61DAFB', bg: 'rgba(97, 218, 251, 0.1)', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg' },
+    { name: 'React Native', color: '#0284c7', bg: 'rgba(2, 132, 199, 0.1)', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg' },
   ],
   BACKEND: [
     { name: 'Express', color: '#000000', bg: 'rgba(0, 0, 0, 0.05)', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg' },
@@ -45,7 +45,7 @@ export default function AboutSection({ setBenModalOpen, isMobile, onDownload, ph
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
-        style={{ padding: isMobile ? '60px 24px' : '80px 48px', position: 'relative' }}
+        style={{ padding: isMobile ? '60px 24px' : '80px 48px', position: 'relative', willChange: 'transform, opacity' }}
       >
         {/* Stats badges */}
         <div style={{ display: 'flex', gap: 12, marginBottom: isMobile ? 32 : 40, flexWrap: 'wrap', alignItems: 'center' }}>

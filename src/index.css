@@ -160,6 +160,46 @@ html[data-theme="aurora"] .vignette {
   }
 }
 
+/* New Aurora Top/Bottom Waves */
+.aurora-wave {
+  position: fixed;
+  left: -10%;
+  width: 120%;
+  height: 40vh;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0;
+  filter: blur(80px);
+  transition: opacity 1.5s ease;
+  will-change: transform, opacity;
+}
+
+html[data-theme="aurora"] .aurora-wave {
+  opacity: 0.6;
+}
+
+.aurora-wave-top {
+  top: -15vh;
+  background: radial-gradient(ellipse at 50% 0%, #38bdf8 0%, #818cf8 40%, transparent 80%);
+  animation: waveMotionTop 20s infinite alternate ease-in-out;
+}
+
+.aurora-wave-bottom {
+  bottom: -15vh;
+  background: radial-gradient(ellipse at 50% 100%, #ec4899 0%, #f43f5e 40%, transparent 80%);
+  animation: waveMotionBottom 25s infinite alternate-reverse ease-in-out;
+}
+
+@keyframes waveMotionTop {
+  0% { transform: translateX(-5%) translateY(0) rotate(-2deg) scale(1); }
+  100% { transform: translateX(5%) translateY(20px) rotate(2deg) scale(1.1); }
+}
+
+@keyframes waveMotionBottom {
+  0% { transform: translateX(5%) translateY(0) rotate(2deg) scale(1); }
+  100% { transform: translateX(-5%) translateY(-20px) rotate(-2deg) scale(1.1); }
+}
+
 .prose-text {
   color: var(--muted);
   max-width: 42ch;
@@ -237,6 +277,7 @@ html[data-theme="aurora"] .vignette {
   justify-content: space-between;
   align-items: center;
   transition: background 0.15s;
+  will-change: background;
 }
 
 .ben-suggestion-item:hover,
@@ -440,6 +481,24 @@ html[data-theme="aurora"] .vignette {
   color: #ffffff;
   padding: 0 12px;
   border-radius: 4px;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(2.5);
+    opacity: 0;
+  }
+}
+
+.pulse-circle {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
 @keyframes scrollDot {

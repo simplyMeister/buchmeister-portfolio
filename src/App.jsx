@@ -114,77 +114,78 @@ export default function App() {
       {loading && <Preloader onComplete={() => setLoading(false)} />}
       {benModalOpen && <BenModal onClose={() => setBenModalOpen(false)} />}
       
-      {/* Theme Selector UI */}
-      <div style={{ position: 'fixed', bottom: 24, right: 24, zIndex: 9999, display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 12 }}>
-        
-        {/* Theme Menu */}
-        {themeMenuOpen && (
-          <div 
-            style={{
-              background: 'var(--bg)',
-              border: '1px solid var(--border)',
-              borderRadius: 12,
-              padding: 8,
-              boxShadow: '0 10px 25px rgba(0,0,0,0.2)',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: 4,
-              animation: 'fadeIn 0.2s ease'
-            }}
-          >
-            {['light', 'aurora'].map(t => (
-              <button
-                key={t}
-                onClick={() => {
-                  setTheme(t)
-                  setThemeMenuOpen(false)
-                }}
-                style={{
-                  background: theme === t ? 'rgba(128, 128, 128, 0.1)' : 'transparent',
-                  border: 'none',
-                  padding: '8px 16px',
-                  borderRadius: 8,
-                  color: 'var(--text)',
-                  cursor: 'pointer',
-                  fontSize: 14,
-                  textAlign: 'left',
-                  textTransform: 'capitalize',
-                  fontFamily: '"Satoshi", "Inter", sans-serif',
-                  transition: 'background 0.2s ease'
-                }}
-                onMouseEnter={e => { if (theme !== t) e.currentTarget.style.background = 'rgba(128, 128, 128, 0.05)' }}
-                onMouseLeave={e => { if (theme !== t) e.currentTarget.style.background = 'transparent' }}
-              >
-                {t} Theme
-              </button>
-            ))}
-          </div>
-        )}
+      {!loading && (
+        <div style={{ position: 'fixed', bottom: 24, right: 24, zIndex: 9999, display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 12 }}>
+          
+          {/* Theme Menu */}
+          {themeMenuOpen && (
+            <div 
+              style={{
+                background: 'var(--bg)',
+                border: '1px solid var(--border)',
+                borderRadius: 12,
+                padding: 8,
+                boxShadow: '0 10px 25px rgba(0,0,0,0.2)',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 4,
+                animation: 'fadeIn 0.2s ease'
+              }}
+            >
+              {['light', 'aurora'].map(t => (
+                <button
+                  key={t}
+                  onClick={() => {
+                    setTheme(t)
+                    setThemeMenuOpen(false)
+                  }}
+                  style={{
+                    background: theme === t ? 'rgba(128, 128, 128, 0.1)' : 'transparent',
+                    border: 'none',
+                    padding: '8px 16px',
+                    borderRadius: 8,
+                    color: 'var(--text)',
+                    cursor: 'pointer',
+                    fontSize: 14,
+                    textAlign: 'left',
+                    textTransform: 'capitalize',
+                    fontFamily: '"Satoshi", "Inter", sans-serif',
+                    transition: 'background 0.2s ease'
+                  }}
+                  onMouseEnter={e => { if (theme !== t) e.currentTarget.style.background = 'rgba(128, 128, 128, 0.05)' }}
+                  onMouseLeave={e => { if (theme !== t) e.currentTarget.style.background = 'transparent' }}
+                >
+                  {t} Theme
+                </button>
+              ))}
+            </div>
+          )}
 
-        {/* Theme Toggle Button */}
-        <MagneticButton distance={80}>
-          <button 
-            onClick={() => setThemeMenuOpen(!themeMenuOpen)}
-            style={{
-              background: 'var(--bg)',
-              border: '1px solid var(--border)',
-              borderRadius: '50%',
-              width: 48,
-              height: 48,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: 'var(--text)',
-              boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
-              cursor: 'pointer',
-              transition: 'background 0.3s ease'
-            }}
-            title="Change Theme"
-          >
-            <Palette size={20} />
-          </button>
-        </MagneticButton>
-      </div>
+          {/* Theme Toggle Button */}
+          <MagneticButton distance={80}>
+            <button 
+              onClick={() => setThemeMenuOpen(!themeMenuOpen)}
+              style={{
+                background: 'var(--bg)',
+                border: '1px solid var(--border)',
+                borderRadius: '50%',
+                width: 48,
+                height: 48,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: 'var(--text)',
+                boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+                cursor: 'pointer',
+                transition: 'background 0.3s ease'
+              }}
+              title="Change Theme"
+            >
+              <Palette size={20} />
+            </button>
+          </MagneticButton>
+        </div>
+      )}
 
       {/* Scroll Progress Bar */}
       <motion.div
@@ -213,6 +214,8 @@ export default function App() {
       >
         {/* Animated Aurora Background (only visible in aurora theme) */}
         <div className="aurora-bg" />
+        <div className="aurora-wave aurora-wave-top" />
+        <div className="aurora-wave aurora-wave-bottom" />
         
         {/* Edge vignette */}
         <div className="vignette" />
@@ -260,7 +263,12 @@ export default function App() {
             <TestimonialsSection isMobile={isMobile} />
           </Suspense>
           <Suspense fallback={<ContactSkeleton isMobile={isMobile} />}>
-            <ContactSection setBenModalOpen={setBenModalOpen} isMobile={isMobile} />
+            <ContactSection 
+              setBenModalOpen={setBenModalOpen} 
+              isMobile={isMobile} 
+              phaseIndex={phaseIndex}
+              PHASES={PHASES}
+            />
           </Suspense>
         </div>
       </div>

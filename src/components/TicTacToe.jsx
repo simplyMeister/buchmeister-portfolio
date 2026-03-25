@@ -276,7 +276,7 @@ function TicTacToeGame() {
 }
 
 // ─── Public export: footer icon + popup modal ──────────────────────────────────
-export default function TicTacToeIcon() {
+export default function TicTacToeIcon({ color }) {
   const [open, setOpen] = useState(false)
 
   return (
@@ -287,12 +287,10 @@ export default function TicTacToeIcon() {
         title="Play tic-tac-toe"
         style={{
           background: 'none', border: 'none', padding: 0,
-          color: '#9ca3af', cursor: 'pointer',
+          color: color || '#9ca3af', cursor: 'pointer',
           display: 'flex', alignItems: 'center',
-          transition: 'color 0.2s',
+          transition: 'color 0.8s ease',
         }}
-        onMouseEnter={e => e.currentTarget.style.color = '#1a1a1a'}
-        onMouseLeave={e => e.currentTarget.style.color = '#9ca3af'}
       >
         <GridIcon size={18} />
       </button>

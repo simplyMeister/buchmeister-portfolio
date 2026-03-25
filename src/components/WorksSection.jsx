@@ -144,7 +144,8 @@ export default function WorksSection({ isMobile }) {
           color: '#eab308',
           marginBottom: 64,
           letterSpacing: '-0.02em',
-          lineHeight: 1
+          lineHeight: 1,
+          willChange: 'transform, opacity'
         }}
       >
         Selected Works
@@ -340,7 +341,7 @@ function ProjectCard({ project, offset, isMobile, index }) {
       <a
         href={project.link}
         target="_blank"
-        rel="noreferrer"
+        rel="noopener noreferrer"
         style={{ 
           display: 'inline-flex', 
           alignItems: 'center', 

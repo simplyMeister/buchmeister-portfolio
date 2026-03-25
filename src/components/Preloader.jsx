@@ -25,7 +25,7 @@ export default function Preloader({ onComplete }) {
     if (!isLoaded) return // Don't start until loaded
 
     if (step <= WORDS.length) {
-      const timer = setTimeout(() => setStep(s => s + 1), 600) // Slower sequential appearance
+      const timer = setTimeout(() => setStep(s => s + 1), 350) // Brisk sequential appearance
       return () => clearTimeout(timer)
     } else {
       // Hide text and slide up when words are done
@@ -33,8 +33,8 @@ export default function Preloader({ onComplete }) {
       
       setTimeout(() => {
         setSlideUp(true)
-        setTimeout(onComplete, 1200) // Wait for staggered columns to finish
-      }, 500) // Longer delay before sliding up out of view
+        setTimeout(onComplete, 800) // Snappier completion
+      }, 300) // Shorter delay before sliding up
     }
   }, [step, isLoaded, onComplete])
 

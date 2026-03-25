@@ -33,7 +33,8 @@ export default function HeroSection({ setBenModalOpen, isMobile, phaseIndex, act
           padding: window.innerWidth <= 1024 ? '0 24px' : '0 48px',
           paddingBottom: window.innerWidth <= 1024 ? '80px' : '0',
           paddingTop: window.innerWidth <= 1024 ? '20px' : '0',
-          overflow: 'hidden'
+          overflow: 'hidden',
+          willChange: 'transform, opacity'
         }}
       >
         {/* Top bar */}
@@ -140,10 +141,22 @@ export default function HeroSection({ setBenModalOpen, isMobile, phaseIndex, act
           {/* Subtext */}
           <div style={{ fontSize: 13, color: '#6b7280', lineHeight: 1.6 }}>
             <div>
-              Previously at <a href="https://sheratonhotels.com" target="_blank" rel="noreferrer" style={{ color: 'inherit', textDecoration: 'none', fontWeight: 900 }}>Sheraton Hotels</a> &amp; <a href="https://www.21st-evolution.com/" target="_blank" rel="noreferrer" style={{ color: 'inherit', textDecoration: 'none', fontWeight: 900 }}>21st Century Evolutions Systems</a>.
+              Previously at <a href="https://sheratonhotels.com" target="_blank" rel="noopener noreferrer" style={{ 
+                color: '#22c55e', 
+                textDecoration: 'none', 
+                fontWeight: 900 
+              }}>Sheraton Hotels</a> &amp; <a href="https://www.21st-evolution.com/" target="_blank" rel="noopener noreferrer" style={{ 
+                color: '#ec4899', 
+                textDecoration: 'none', 
+                fontWeight: 900 
+              }}>21st Century Evolutions Systems</a>.
             </div>
             <div style={{ marginTop: 4 }}>
-              Now Frontend-Dev and IT engineer at <a href="https://rceettech.com" target="_blank" rel="noreferrer" style={{ color: 'inherit', textDecoration: 'none', fontWeight: 900 }}>rceet technologies</a>.
+              Now Frontend-Dev and IT engineer at <a href="https://rceettech.com" target="_blank" rel="noopener noreferrer" style={{ 
+                color: '#eab308', 
+                textDecoration: 'none', 
+                fontWeight: 900 
+              }}>rceet technologies</a>.
             </div>
           </div>
           
@@ -165,7 +178,7 @@ export default function HeroSection({ setBenModalOpen, isMobile, phaseIndex, act
                 key={link.id}
                 href={link.url} 
                 target="_blank" 
-                rel="noreferrer" 
+                rel="noopener noreferrer" 
                 className="social-link"
                 onMouseEnter={() => setHoveredLink(link.id)}
                 onMouseLeave={() => setHoveredLink(null)}
